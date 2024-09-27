@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dx6lxi65yf2mn"
+path="res://.godot/imported/star_mesh.obj-b4a25a65711adb2fdb9c16db0e7469fd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/star_mesh.obj-b4a25a65711adb2fdb9c16db0e7469fd.mesh"]
+
+source_file="res://demo_box/star_mesh.obj"
+dest_files=["res://.godot/imported/star_mesh.obj-b4a25a65711adb2fdb9c16db0e7469fd.mesh", "res://.godot/imported/star_mesh.obj-b4a25a65711adb2fdb9c16db0e7469fd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
