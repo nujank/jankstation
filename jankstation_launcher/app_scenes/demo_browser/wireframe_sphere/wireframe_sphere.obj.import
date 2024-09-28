@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://2tkw4vyal8tl"
+path="res://.godot/imported/wireframe_sphere.obj-276dac41e06c20af3af02e97a17044d1.mesh"
+
+[deps]
+
+files=["res://.godot/imported/wireframe_sphere.obj-276dac41e06c20af3af02e97a17044d1.mesh"]
+
+source_file="res://app_scenes/demo_browser/wireframe_sphere/wireframe_sphere.obj"
+dest_files=["res://.godot/imported/wireframe_sphere.obj-276dac41e06c20af3af02e97a17044d1.mesh", "res://.godot/imported/wireframe_sphere.obj-276dac41e06c20af3af02e97a17044d1.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

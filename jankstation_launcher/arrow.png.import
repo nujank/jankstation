@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5gf8mbtf8qm0"
-path="res://.godot/imported/banner_gradient.png-2a4eb0cf72eec73617fc97574f7aae47.ctex"
+uid="uid://bifqbj6e5xi2h"
+path="res://.godot/imported/arrow.png-9a52328c9c8f79a188b7fabb13b1f3fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://banner_gradient.png"
-dest_files=["res://.godot/imported/banner_gradient.png-2a4eb0cf72eec73617fc97574f7aae47.ctex"]
+source_file="res://arrow.png"
+dest_files=["res://.godot/imported/arrow.png-9a52328c9c8f79a188b7fabb13b1f3fc.ctex"]
 
 [params]
 

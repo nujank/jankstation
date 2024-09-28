@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://demxtj7vvuhvs"
-path.s3tc="res://.godot/imported/mario_face.png-4767e4c2a460a06faf8707d8e71c6559.s3tc.ctex"
+uid="uid://bpqbc5xh6mvog"
+path.s3tc="res://.godot/imported/box_gradient_texture.png-4d6be5bf73c3d905a9daa4c3646045c2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://mario_face.png"
-dest_files=["res://.godot/imported/mario_face.png-4767e4c2a460a06faf8707d8e71c6559.s3tc.ctex"]
+source_file="res://app_scenes/demo_browser/demo_block/box_gradient_texture.png"
+dest_files=["res://.godot/imported/box_gradient_texture.png-4d6be5bf73c3d905a9daa4c3646045c2.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,76 @@
+[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://ca2r1u5a8xtb7"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_amcsl"]
+constant = 0.1
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_ic1p1"]
+constant = 0.01
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_malfg"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_qtbmn"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_n4mu8"]
+input_name = "view"
+
+[sub_resource type="VisualShaderNodeFresnel" id="VisualShaderNodeFresnel_1b1xs"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_is044"]
+
+[sub_resource type="VisualShaderNodeProximityFade" id="VisualShaderNodeProximityFade_in5l5"]
+default_input_values = [0, 50.0]
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_rd8fr"]
+function = 31
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_1icrg"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded, wireframe;
+
+
+
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+
+
+// FloatConstant:11
+	float n_out11p0 = 0.010000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out11p0;
+
+
+}
+"
+graph_offset = Vector2(-531.294, -64.3469)
+modes/cull = 2
+flags/unshaded = true
+flags/wireframe = true
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_malfg")
+nodes/fragment/2/position = Vector2(-26.994, 80.2733)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_qtbmn")
+nodes/fragment/3/position = Vector2(-1180, 280)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_n4mu8")
+nodes/fragment/4/position = Vector2(-1180, 400)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFresnel_1b1xs")
+nodes/fragment/5/position = Vector2(-780, 260)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_is044")
+nodes/fragment/6/position = Vector2(-480, 340)
+nodes/fragment/7/node = SubResource("VisualShaderNodeProximityFade_in5l5")
+nodes/fragment/7/position = Vector2(-980, 660)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatFunc_rd8fr")
+nodes/fragment/8/position = Vector2(-700, 640)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_1icrg")
+nodes/fragment/9/position = Vector2(-177.897, 426.148)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatConstant_amcsl")
+nodes/fragment/10/position = Vector2(-380, 660)
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatConstant_ic1p1")
+nodes/fragment/11/position = Vector2(40, 260)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 5, 0, 4, 0, 5, 1, 7, 0, 8, 0, 8, 0, 6, 1, 5, 0, 6, 0, 6, 0, 9, 0, 10, 0, 9, 1, 11, 0, 0, 1)

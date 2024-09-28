@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://sukcnuebs63m"]
+
+[ext_resource type="Script" path="res://app_scenes/demo_browser/demo_browser.gd" id="1_lyfic"]
+[ext_resource type="PackedScene" uid="uid://srapgnfh0jom" path="res://app_scenes/demo_browser/demo_block/demo_block.tscn" id="2_0rhcs"]
+[ext_resource type="Texture2D" uid="uid://bifqbj6e5xi2h" path="res://arrow.png" id="3_54pv5"]
+[ext_resource type="Texture2D" uid="uid://b3j7ebaci0dmq" path="res://arrow2.png" id="3_wh0pm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48pag"]
+shading_mode = 0
+
+[node name="DemoBrowser" type="Node3D"]
+script = ExtResource("1_lyfic")
+demo_block_packed = ExtResource("2_0rhcs")
+
+[node name="DemoBlockGrid" type="Node3D" parent="."]
+
+[node name="UpArrowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 5.4, 0)
+material_override = SubResource("StandardMaterial3D_48pag")
+skeleton = NodePath("../DemoBlockGrid")
+
+[node name="DownArrowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2.25, -0.9, 0)
+material_override = SubResource("StandardMaterial3D_48pag")
+skeleton = NodePath("../DemoBlockGrid")
+
+[node name="DemoTitleLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+offset_left = 235.0
+offset_top = 74.0
+offset_right = 385.0
+offset_bottom = 97.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[center]Demo Title[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="DemoDescriptionLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+offset_left = 236.0
+offset_top = 113.0
+offset_right = 381.0
+offset_bottom = 267.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "This is a dope demo that you should play right now."
+fit_content = true
+scroll_active = false
+
+[node name="BackButton" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 39.0
+offset_bottom = 37.0
+texture_normal = ExtResource("3_wh0pm")
+texture_hover = ExtResource("3_54pv5")
+stretch_mode = 0

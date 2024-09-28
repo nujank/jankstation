@@ -1,13 +1,13 @@
 [gd_scene load_steps=21 format=3 uid="uid://srapgnfh0jom"]
 
-[ext_resource type="Script" path="res://demo_box/demo_block.gd" id="1_ugoad"]
-[ext_resource type="Texture2D" uid="uid://bpqbc5xh6mvog" path="res://demo_box/box_gradient_texture.png" id="2_qhech"]
-[ext_resource type="AudioStream" uid="uid://cjeec0nxbf87s" path="res://demo_box/misc_menu_3.wav" id="2_rs8g8"]
-[ext_resource type="ArrayMesh" uid="uid://qjhiaoishe6v" path="res://demo_box/block_mesh.obj" id="3_jn2mj"]
-[ext_resource type="Texture2D" uid="uid://bq0bdirmnyywm" path="res://moths_icon.png" id="4_qyo3j"]
-[ext_resource type="ArrayMesh" uid="uid://dx6lxi65yf2mn" path="res://demo_box/star_mesh.obj" id="5_bvfip"]
-[ext_resource type="AudioStream" uid="uid://ccrpda0mbkcuq" path="res://demo_box/misc_menu.wav" id="7_c1e2j"]
-[ext_resource type="AudioStream" uid="uid://mkm0b0bx2j2p" path="res://demo_box/load.wav" id="8_tdhqo"]
+[ext_resource type="Script" path="res://app_scenes/demo_browser/demo_block/demo_block.gd" id="1_ugoad"]
+[ext_resource type="Texture2D" uid="uid://bpqbc5xh6mvog" path="res://app_scenes/demo_browser/demo_block/box_gradient_texture.png" id="2_qhech"]
+[ext_resource type="AudioStream" uid="uid://cjeec0nxbf87s" path="res://app_scenes/demo_browser/demo_block/misc_menu_3.wav" id="2_rs8g8"]
+[ext_resource type="ArrayMesh" uid="uid://qjhiaoishe6v" path="res://app_scenes/demo_browser/demo_block/block_mesh.obj" id="3_jn2mj"]
+[ext_resource type="ArrayMesh" uid="uid://dx6lxi65yf2mn" path="res://app_scenes/demo_browser/demo_block/star_mesh.obj" id="5_bvfip"]
+[ext_resource type="Texture2D" uid="uid://ds4t5dt6p7e40" path="res://butterfly.png" id="5_uo4dc"]
+[ext_resource type="AudioStream" uid="uid://ccrpda0mbkcuq" path="res://app_scenes/demo_browser/demo_block/misc_menu.wav" id="7_c1e2j"]
+[ext_resource type="AudioStream" uid="uid://mkm0b0bx2j2p" path="res://app_scenes/demo_browser/demo_block/load.wav" id="8_tdhqo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3gvf"]
 shading_mode = 0
@@ -34,7 +34,7 @@ transparency = 1
 depth_draw_mode = 2
 no_depth_test = true
 shading_mode = 0
-albedo_texture = ExtResource("4_qyo3j")
+albedo_texture = ExtResource("5_uo4dc")
 texture_filter = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_h8jii"]
@@ -98,7 +98,6 @@ mesh = SubResource("QuadMesh_h8jii")
 
 [node name="StarMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0.413, -0.449, 0)
-visible = false
 material_override = SubResource("StandardMaterial3D_84d2q")
 mesh = ExtResource("5_bvfip")
 

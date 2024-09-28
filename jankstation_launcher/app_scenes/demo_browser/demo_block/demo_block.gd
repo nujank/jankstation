@@ -15,7 +15,6 @@ extends StaticBody3D
 
 
 var ticks: float = 0.0
-
 var hovered: bool = false
 
 

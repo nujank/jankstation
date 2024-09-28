@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="jankstation_launcher"
-run/main_scene="res://main.tscn"
+run/main_scene="res://app/app.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,3 +23,4 @@ window/size/always_on_top=true
 window/size/window_width_override=800
 window/size/window_height_override=600
 window/stretch/mode="viewport"
+window/main_scene="res://app/app.tscn"

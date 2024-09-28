@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://osv1evwffnqo"]
+
+[ext_resource type="Script" path="res://point_swarm/point_swarm.gd" id="1_l4hk8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5vxj"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.2)
+use_point_size = true
+point_size = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5nnn"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 0.105882)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8og53"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.509804)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ln211"]
+radial_segments = 8
+rings = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xw7mi"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 0.545098)
+
+[sub_resource type="SphereMesh" id="SphereMesh_tuf1p"]
+flip_faces = true
+radius = 0.6
+height = 1.2
+radial_segments = 8
+rings = 3
+
+[node name="PointSwarm" type="Node3D"]
+script = ExtResource("1_l4hk8")
+point_material = SubResource("StandardMaterial3D_g5vxj")
+point_line_material = SubResource("StandardMaterial3D_f5nnn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_8og53")
+mesh = SubResource("SphereMesh_ln211")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_xw7mi")
+mesh = SubResource("SphereMesh_tuf1p")

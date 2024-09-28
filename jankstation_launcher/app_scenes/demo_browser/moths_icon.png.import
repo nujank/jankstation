@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db6lm0w4n7lse"
-path.s3tc="res://.godot/imported/Icon1.png-91915311288580017415cefdb9171de2.s3tc.ctex"
+uid="uid://bq0bdirmnyywm"
+path.s3tc="res://.godot/imported/moths_icon.png-e911e6dd0e5e7e48d19fe4c113f6bb6e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Icon1.png"
-dest_files=["res://.godot/imported/Icon1.png-91915311288580017415cefdb9171de2.s3tc.ctex"]
+source_file="res://app_scenes/demo_browser/moths_icon.png"
+dest_files=["res://.godot/imported/moths_icon.png-e911e6dd0e5e7e48d19fe4c113f6bb6e.s3tc.ctex"]
 
 [params]
 

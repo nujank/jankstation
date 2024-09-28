@@ -73,11 +73,11 @@ static func build_wireframe_grid_mesh(size: int, material: StandardMaterial3D) -
 	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	
 	for i in size:
-		immediate_mesh.surface_add_vertex(Vector3(-(size/2) + i, -(size/2), 0.0))
-		immediate_mesh.surface_add_vertex(Vector3(-(size/2) + i, (size/2), 0.0))
+		immediate_mesh.surface_add_vertex(Vector3(-(size/2.0) + i, -(size/2.0), 0.0))
+		immediate_mesh.surface_add_vertex(Vector3(-(size/2.0) + i, (size/2.0), 0.0))
 		
-		immediate_mesh.surface_add_vertex(Vector3(-(size/2), -(size/2) + i, 0.0))
-		immediate_mesh.surface_add_vertex(Vector3((size/2), -(size/2) + i, 0.0))
+		immediate_mesh.surface_add_vertex(Vector3(-(size/2.0), -(size/2.0) + i, 0.0))
+		immediate_mesh.surface_add_vertex(Vector3((size/2.0), -(size/2.0) + i, 0.0))
 		
 	immediate_mesh.surface_end()
 	

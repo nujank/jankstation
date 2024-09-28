@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpqbc5xh6mvog"
-path.s3tc="res://.godot/imported/box_gradient_texture.png-601c924329d1500b629281ee94a8848f.s3tc.ctex"
+uid="uid://ds4t5dt6p7e40"
+path.s3tc="res://.godot/imported/butterfly.png-620a0adc186b85a9edba68a02b1e97da.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://demo_box/box_gradient_texture.png"
-dest_files=["res://.godot/imported/box_gradient_texture.png-601c924329d1500b629281ee94a8848f.s3tc.ctex"]
+source_file="res://butterfly.png"
+dest_files=["res://.godot/imported/butterfly.png-620a0adc186b85a9edba68a02b1e97da.s3tc.ctex"]
 
 [params]
 
