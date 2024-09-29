@@ -4,31 +4,140 @@ extends Node3D
 
 @export var demo_block_packed: PackedScene
 
-@onready var demo_block_grid: Node3D = $DemoBlockGrid
-@onready var up_arrow_mesh: MeshInstance3D = $UpArrowMesh
-@onready var down_arrow_mesh: MeshInstance3D = $DownArrowMesh
+@onready var demo_block_grid: Node3D = $GridContainer/DemoBlockGrid
+@onready var up_arrow: StaticBody3D = $GridContainer/UpArrow
+@onready var up_arrow_mesh: MeshInstance3D = $GridContainer/UpArrow/UpArrowMesh
+
+@onready var down_arrow: StaticBody3D = $GridContainer/DownArrow
+@onready var down_arrow_mesh: MeshInstance3D = $GridContainer/DownArrow/DownArrowMesh
+
 @onready var demo_title_label: RichTextLabel = $DemoTitleLabel
 @onready var demo_description_label: RichTextLabel = $DemoDescriptionLabel
-@onready var back_button: TextureButton = $BackButton
+@onready var overlay: ColorRect = $Overlay
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var block_offset: float = 1.5
 
+var demo_path: String = OS.get_executable_path().get_base_dir() + "/demo_data"
+var test_demo_path: String = "res://test_demo_data"
+var demo_data_array: Array[DemoData] = []
+var has_played_dict: Dictionary = {}
+
+var scroll_index: int = 0
+var current_demo_pid: int = -1
+
+
 func _ready() -> void:
-	up_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), up_arrow_mesh.material_override)
-	down_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), down_arrow_mesh.material_override)
+	App.instance.title_bar.show_home_button()
+	App.instance.title_bar.set_title_label_text("Demo Browser")
 	
+	App.instance.title_bar.home_button_pressed.connect(on_title_bar_home_button_pressed)
+	
+	up_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), up_arrow_mesh.material_override)
+	up_arrow.input_event.connect(on_up_arrow_input_event)
+	down_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), down_arrow_mesh.material_override)
+	down_arrow.input_event.connect(on_down_arrow_input_event)
+	
+	load_demo_data()
 	setup_demo_block_grid()
 	
-	back_button.pressed.connect(on_back_button_pressed)
+	animation_player.play("trans_in")
+	await animation_player.animation_changed
+	
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton && event.pressed:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			scroll_index -= 4
+			if scroll_index < 0:
+				scroll_index = 0
+			load_demo_data()
+			setup_demo_block_grid()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			scroll_index += 4
+			if scroll_index > demo_data_array.size():
+				scroll_index -= 4
+			load_demo_data()
+			setup_demo_block_grid()
+	
+	
+func _process(delta: float) -> void:
+	if OS.is_process_running(current_demo_pid) == true:
+		overlay.show()			
+	else:
+		if current_demo_pid >= 0:
+			overlay.hide()
+			load_demo_data()
+			setup_demo_block_grid()
+			App.instance.resume_audio()
+			current_demo_pid = -1
+	
+	
+func load_demo_data() -> void:
+	demo_data_array.clear()
+	has_played_dict.clear()
+	
+	# load saved data
+	var config: ConfigFile = ConfigFile.new()
+	var err = config.load("user://demo_data.cfg")
+	if err == OK:
+		for demo_entry in config.get_sections():
+			var has_played = config.get_value(demo_entry, "has_played")
+			has_played_dict[demo_entry] = has_played
+			
+	# scan demo data directory
+	var demo_data_dir = DirAccess.open(demo_path)
+	if demo_data_dir:
+		demo_data_dir.list_dir_begin()
+		var demo_dir_name: String = demo_data_dir.get_next()
+		while demo_dir_name != "":
+			if demo_data_dir.current_is_dir():
+				
+				var demo_title: String = demo_dir_name
+				var demo_description: String = demo_dir_name + " description."
+				
+				var thumbnail: Texture2D = ImageTexture.create_from_image(Image.load_from_file(demo_path + "/" + demo_dir_name + "/thumbnail.png")) as Texture2D
+				var has_played: bool = false
+				if has_played_dict.has(demo_title):
+					has_played = has_played_dict[demo_title]
+				
+				var demo_data: DemoData = DemoData.new(demo_title, demo_description, thumbnail, has_played)
+				demo_data_array.push_back(demo_data)
+				
+			demo_dir_name = demo_data_dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
 	
 	
 func setup_demo_block_grid() -> void:
-	for i in 16:
+	for c in demo_block_grid.get_children():
+		c.queue_free()
+		
+	for i in 16:#demo_data_array.size():
 		var demo_block_inst: DemoBlock = demo_block_packed.instantiate() as DemoBlock
 		demo_block_grid.add_child(demo_block_inst)
 		var x: float = (i % 4) * block_offset
-		var y: float = floori(i / 4) * block_offset
-		demo_block_inst.global_position = Vector3(x, y, 0.0)
+		var y: float = -floori(i / 4) * block_offset
+		demo_block_inst.position = Vector3(x, y, 0.0)
+		
+		var dd: DemoData = null
+		
+		var idx: int = scroll_index + i
+		
+		if idx < demo_data_array.size():
+			dd = demo_data_array[idx]
+		
+		demo_block_inst.selected.connect(func():
+			on_demo_block_selected(dd)
+		)
+		demo_block_inst.hovered.connect(func():
+			on_demo_block_hovered(dd)
+		)
+		if dd != null:
+			demo_block_inst.set_thumbnail_image(dd.thumbnail)
+			if dd.has_played == true:
+				demo_block_inst.show_star()
 
 
 func make_hidden() -> void:
@@ -37,5 +146,57 @@ func make_hidden() -> void:
 	demo_description_label.visible = false
 
 
-func on_back_button_pressed() -> void:
+func on_demo_block_selected(demo_data: DemoData) -> void:
+	if demo_data == null: return
+	
+	has_played_dict[demo_data.title] = true
+	
+	var config = ConfigFile.new()
+	for entry in has_played_dict:
+		config.set_value(entry, "has_played", has_played_dict[entry])
+	config.save("user://demo_data.cfg")
+	
+	# run exe
+	var demo_exe_path: String = demo_path + "/" + demo_data.title + "/" + "test_demo_build.exe"
+	var demo_exe_dict: Dictionary = OS.execute_with_pipe(demo_exe_path, [])
+	current_demo_pid = demo_exe_dict["pid"]
+	
+	App.instance.pause_audio()
+
+
+func on_demo_block_hovered(demo_data: DemoData) -> void:
+	if demo_data == null:
+		demo_title_label.text = ""
+		demo_description_label.text = ""
+		return
+		
+	demo_title_label.text = demo_data.title
+	demo_description_label.text = demo_data.description
+
+
+func on_up_arrow_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
+		scroll_index -= 4
+		if scroll_index < 0:
+			scroll_index = 0
+			
+		load_demo_data()
+		setup_demo_block_grid()
+	
+	
+func on_down_arrow_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
+		scroll_index += 4
+		if scroll_index > demo_data_array.size():
+			scroll_index -= 4
+			
+		load_demo_data()
+		setup_demo_block_grid()
+
+
+func on_title_bar_home_button_pressed() -> void:
+	demo_title_label.hide()
+	demo_description_label.hide()
+	animation_player.play("trans_out")
+	await animation_player.animation_finished
 	App.instance.change_scene_instant("main_menu")

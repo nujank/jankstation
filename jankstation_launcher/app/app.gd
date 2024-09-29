@@ -10,9 +10,11 @@ var current_scene_inst: Node = null
 @onready var scene_root: Node = $SceneRoot
 @onready var screen_fade: ScreenFade = $ScreenFade
 
-
 @onready var background_grid: MeshInstance3D = $Camera3D/BackgroundGrid
 @onready var wireframe_sphere: MeshInstance3D = $Camera3D/WireframeSphere
+@onready var bgm_audio: AudioStreamPlayer = $BGMAudio
+
+@onready var title_bar: TitleBar = $TitleBar
 
 var ticks: float = 0.0
 
@@ -23,7 +25,7 @@ func _ready() -> void:
 	background_grid.mesh = MeshUtils.build_wireframe_grid_mesh(32, background_grid.material_override)
 	
 	load_scene("boot")
-	change_scene("main_menu")
+	change_scene("splash")
 	
 	
 func _process(delta: float) -> void:
@@ -47,9 +49,11 @@ func change_scene(scene_name: String, fade_out_duration: float = 1.0, fade_in_du
 	
 	
 func change_scene_instant(scene_name: String) -> void:
+	await title_bar.slide_up()
 	unload_current_scene()
 	await get_tree().process_frame
 	load_scene(scene_name)
+	await title_bar.slide_down()
 
 
 func load_scene(scene_name: String) -> void:
@@ -73,3 +77,12 @@ func pause() -> void:
 
 func resume() -> void:
 	get_tree().paused = false
+
+
+func pause_audio() -> void:
+	bgm_audio.stop()
+	
+	
+func resume_audio() -> void:
+	if bgm_audio.playing == false:
+		bgm_audio.play()

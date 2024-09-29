@@ -1,28 +1,149 @@
-[gd_scene load_steps=6 format=3 uid="uid://sukcnuebs63m"]
+[gd_scene load_steps=11 format=3 uid="uid://sukcnuebs63m"]
 
 [ext_resource type="Script" path="res://app_scenes/demo_browser/demo_browser.gd" id="1_lyfic"]
 [ext_resource type="PackedScene" uid="uid://srapgnfh0jom" path="res://app_scenes/demo_browser/demo_block/demo_block.tscn" id="2_0rhcs"]
-[ext_resource type="Texture2D" uid="uid://bifqbj6e5xi2h" path="res://arrow.png" id="3_54pv5"]
-[ext_resource type="Texture2D" uid="uid://b3j7ebaci0dmq" path="res://arrow2.png" id="3_wh0pm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48pag"]
 shading_mode = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_edmr1"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8cq7"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgxu4"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="Animation" id="Animation_o5yot"]
+resource_name = "trans_out"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GridContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-8, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GridContainer:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jmobp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GridContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GridContainer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eb81g"]
+resource_name = "trans_in"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GridContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-8, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GridContainer:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.14159, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ng3ml"]
+_data = {
+"RESET": SubResource("Animation_jmobp"),
+"trans_in": SubResource("Animation_eb81g"),
+"trans_out": SubResource("Animation_o5yot")
+}
 
 [node name="DemoBrowser" type="Node3D"]
 script = ExtResource("1_lyfic")
 demo_block_packed = ExtResource("2_0rhcs")
 
-[node name="DemoBlockGrid" type="Node3D" parent="."]
+[node name="GridContainer" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="UpArrowMesh" type="MeshInstance3D" parent="."]
+[node name="DemoBlockGrid" type="Node3D" parent="GridContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+
+[node name="UpArrow" type="StaticBody3D" parent="GridContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25, 5.4, 0)
-material_override = SubResource("StandardMaterial3D_48pag")
-skeleton = NodePath("../DemoBlockGrid")
 
-[node name="DownArrowMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2.25, -0.9, 0)
+[node name="UpArrowMesh" type="MeshInstance3D" parent="GridContainer/UpArrow"]
 material_override = SubResource("StandardMaterial3D_48pag")
-skeleton = NodePath("../DemoBlockGrid")
+skeleton = NodePath("../../DemoBlockGrid")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GridContainer/UpArrow"]
+shape = SubResource("BoxShape3D_edmr1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridContainer/UpArrow"]
+visible = false
+material_override = SubResource("StandardMaterial3D_s8cq7")
+mesh = SubResource("BoxMesh_sgxu4")
+
+[node name="DownArrow" type="StaticBody3D" parent="GridContainer"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2.25, -0.9, 0)
+
+[node name="DownArrowMesh" type="MeshInstance3D" parent="GridContainer/DownArrow"]
+material_override = SubResource("StandardMaterial3D_48pag")
+skeleton = NodePath("../../DemoBlockGrid")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GridContainer/DownArrow"]
+shape = SubResource("BoxShape3D_edmr1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridContainer/DownArrow"]
+visible = false
+material_override = SubResource("StandardMaterial3D_s8cq7")
+mesh = SubResource("BoxMesh_sgxu4")
 
 [node name="DemoTitleLabel" type="RichTextLabel" parent="."]
 texture_filter = 1
@@ -32,7 +153,6 @@ offset_right = 385.0
 offset_bottom = 97.0
 mouse_filter = 2
 bbcode_enabled = true
-text = "[center]Demo Title[/center]"
 fit_content = true
 scroll_active = false
 
@@ -45,16 +165,37 @@ offset_bottom = 267.0
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "This is a dope demo that you should play right now."
 fit_content = true
 scroll_active = false
 
-[node name="BackButton" type="TextureButton" parent="."]
-texture_filter = 1
-offset_left = 7.0
-offset_top = 5.0
-offset_right = 39.0
-offset_bottom = 37.0
-texture_normal = ExtResource("3_wh0pm")
-texture_hover = ExtResource("3_54pv5")
-stretch_mode = 0
+[node name="Overlay" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.419608)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -11.5
+offset_right = 96.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Currently playing demo"
+fit_content = true
+scroll_active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ng3ml")
+}

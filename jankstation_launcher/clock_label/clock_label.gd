@@ -14,5 +14,4 @@ func _process(delta: float) -> void:
 		hour = 12	
 	
 	var final_str: String = "%02d:%02d" % [hour, minute] + am_pm_str
-	print(final_str)
 	text = "[right]" + final_str + "[/right]"

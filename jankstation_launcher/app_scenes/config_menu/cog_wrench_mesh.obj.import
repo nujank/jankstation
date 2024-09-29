@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dgbow2l74bpot"
+path="res://.godot/imported/cog_wrench_mesh.obj-7e8c53d4cbdb745b96e03c53f55694cc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cog_wrench_mesh.obj-7e8c53d4cbdb745b96e03c53f55694cc.mesh"]
+
+source_file="res://app_scenes/config_menu/cog_wrench_mesh.obj"
+dest_files=["res://.godot/imported/cog_wrench_mesh.obj-7e8c53d4cbdb745b96e03c53f55694cc.mesh", "res://.godot/imported/cog_wrench_mesh.obj-7e8c53d4cbdb745b96e03c53f55694cc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

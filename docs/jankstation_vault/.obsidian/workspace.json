@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sep 26, 2024.md",
+                "file": "FAQ.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Sep 26, 2024.md",
+                "file": "FAQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Sep 26, 2024.md",
+                "file": "FAQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Sep 26, 2024.md"
+                "file": "FAQ.md"
               }
             }
           }
@@ -161,8 +161,10 @@
   },
   "active": "20194652f5921bdb",
   "lastOpenFiles": [
-    "FAQ.md",
+    "Rules.md",
     "Sep 26, 2024.md",
+    "Sep 28, 2024.md",
+    "FAQ.md",
     "2024-09-26.md",
     "Welcome.md",
     "2 - Topics",

@@ -13,7 +13,7 @@ Q: Can you submit more than one demo to a jam?
 A: Nothing stops you from submitting more than one demo.
 
 Q: Can I post my WIPs and development publicly during the jam?
-A: ?
+A: Yes. It's encouraged!
 
 Q: Can I submit a game I made previously?
 A: No. You can only submit projects made within the time frame.

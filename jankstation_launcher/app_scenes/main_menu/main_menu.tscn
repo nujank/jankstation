@@ -1,14 +1,83 @@
-[gd_scene load_steps=4 format=3 uid="uid://dky2g1mg0pa8y"]
+[gd_scene load_steps=11 format=3 uid="uid://dky2g1mg0pa8y"]
 
 [ext_resource type="Script" path="res://app_scenes/main_menu/main_menu.gd" id="1_2pwuu"]
 [ext_resource type="PackedScene" uid="uid://osv1evwffnqo" path="res://point_swarm/point_swarm.tscn" id="2_lv6n0"]
+[ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="2_w5eit"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mg0r"]
+bg_color = Color(0, 0, 0, 0.623529)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fx413"]
+
+[sub_resource type="TextMesh" id="TextMesh_ooxct"]
+text = "Hello world!"
+
+[sub_resource type="Animation" id="Animation_3msab"]
+resource_name = "trans_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointSwarm:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, 2.5, 0), Vector3(4.5, 2.85, 20)]
+}
+
+[sub_resource type="Animation" id="Animation_42orm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointSwarm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3, 2.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f107m"]
+resource_name = "trans_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointSwarm:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(4.5, 2.85, 20), Vector3(3, 2.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rn7a"]
+_data = {
+"RESET": SubResource("Animation_42orm"),
+"trans_in": SubResource("Animation_f107m"),
+"trans_out": SubResource("Animation_3msab")
+}
 
 [node name="MainMenu" type="Node3D"]
 script = ExtResource("1_2pwuu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -20,20 +89,42 @@ offset_bottom = 81.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DemoBrowserButton" type="Button" parent="VBoxContainer"]
+[node name="DemoBrowserButton" type="Button" parent="ButtonContainer"]
+texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_w5eit")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3mg0r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3mg0r")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fx413")
 text = "Demo Browser"
 
-[node name="ConfigButton" type="Button" parent="VBoxContainer"]
+[node name="ConfigButton" type="Button" parent="ButtonContainer"]
+texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_w5eit")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3mg0r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3mg0r")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fx413")
 text = "Config"
 
-[node name="ExitButton" type="Button" parent="VBoxContainer"]
+[node name="ExitButton" type="Button" parent="ButtonContainer"]
+texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_w5eit")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3mg0r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3mg0r")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_fx413")
 text = "Exit"
 
 [node name="PointSwarm" parent="." instance=ExtResource("2_lv6n0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.9095, 0, 0, 0, 4.9095, 0, 0, 0, 4.9095, 2.165, -0.315, 0)
+visible = false
+mesh = SubResource("TextMesh_ooxct")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4rn7a")
+}

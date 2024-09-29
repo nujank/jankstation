@@ -1,0 +1,234 @@
+[gd_scene load_steps=15 format=3 uid="uid://b52vpekcolfsf"]
+
+[ext_resource type="Script" path="res://app_scenes/config_menu/config_menu.gd" id="1_a2c4c"]
+[ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="2_37w2t"]
+[ext_resource type="Shader" uid="uid://dsaihpkmktru8" path="res://app_scenes/config_menu/cog_mesh_shader.tres" id="2_k87fo"]
+[ext_resource type="ArrayMesh" uid="uid://cb02jc6m5nxwv" path="res://app_scenes/config_menu/wrench_mesh.obj" id="3_30nts"]
+[ext_resource type="ArrayMesh" uid="uid://daudyoivg0niy" path="res://app_scenes/config_menu/cog_mesh.obj" id="4_8qte6"]
+[ext_resource type="ArrayMesh" uid="uid://dgbow2l74bpot" path="res://app_scenes/config_menu/cog_wrench_mesh.obj" id="5_dkq3p"]
+
+[sub_resource type="Gradient" id="Gradient_v2e08"]
+offsets = PackedFloat32Array(0, 0.00361011, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hwx5q"]
+gradient = SubResource("Gradient_v2e08")
+width = 16
+height = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ngub"]
+render_priority = 0
+shader = ExtResource("2_k87fo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7qei4"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_x11l4"]
+resource_name = "trans_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, 2, 0), Vector3(3, -5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7yvtw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3, 2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yur8p"]
+resource_name = "trans_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, -5, 0), Vector3(3, 2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_674if"]
+_data = {
+"RESET": SubResource("Animation_7yvtw"),
+"trans_in": SubResource("Animation_yur8p"),
+"trans_out": SubResource("Animation_x11l4")
+}
+
+[node name="ConfigMenu" type="Node3D"]
+script = ExtResource("1_a2c4c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -60.0
+offset_right = 152.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/normal_font = ExtResource("2_37w2t")
+text = "Fullscreen"
+fit_content = true
+scroll_active = false
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_37w2t")
+text = "Music Volume"
+fit_content = true
+scroll_active = false
+
+[node name="MusicVolumeSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+step = 10.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_37w2t")
+text = "SFX Volume"
+fit_content = true
+scroll_active = false
+
+[node name="SFXVolumeSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+step = 10.0
+tick_count = 11
+ticks_on_borders = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_37w2t")
+text = "Theme Color"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton2" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton3" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 1, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton4" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0, 1, 1, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton5" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton6" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0, 1, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton7" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(0.501961, 0, 1, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="ColorButton8" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0.501961, 0, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
+
+[node name="CogMesh" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1.5, 0, 0, 0, 0.75, -1.29904, 0, 1.29904, 0.75, 0, 0, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_3ngub")
+mesh = ExtResource("4_8qte6")
+skeleton = NodePath("../..")
+
+[node name="WrenchMesh" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(3.4725, 0, 0, 0, 1.73625, -3.00727, 0, 3.00727, 1.73625, 0, 0, 0)
+visible = false
+material_override = SubResource("ShaderMaterial_3ngub")
+mesh = ExtResource("3_30nts")
+skeleton = NodePath("../..")
+
+[node name="CogWrenchMesh" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.840149, 1.49012e-08, -0.542355, -0.469693, 0.5, -0.727591, 0.271177, 0.866025, 0.420075, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_3ngub")
+mesh = ExtResource("5_dkq3p")
+skeleton = NodePath("../..")
+
+[node name="CogWrenchMesh2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.840149, -2.98023e-08, -0.542355, -0.469693, 0.5, -0.727591, 0.271177, 0.866025, 0.420075, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_7qei4")
+mesh = ExtResource("5_dkq3p")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_674if")
+}

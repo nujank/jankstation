@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3 uid="uid://b1edcg851ur67"]
+
+[ext_resource type="Script" path="res://title_bar/title_bar.gd" id="1_0u5xf"]
+[ext_resource type="Texture2D" uid="uid://5gf8mbtf8qm0" path="res://ui/banner_gradient.png" id="1_4nv3i"]
+[ext_resource type="Texture2D" uid="uid://cc2sjf7dnaqbx" path="res://ui/home_icon.png" id="2_e01ul"]
+[ext_resource type="Texture2D" uid="uid://bep637f745quf" path="res://ui/home_icon_hovered.png" id="3_25yug"]
+[ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="4_ycwhu"]
+[ext_resource type="PackedScene" uid="uid://bs0vsp0bb1xi7" path="res://clock_label/clock_label.tscn" id="5_xa15i"]
+[ext_resource type="AudioStream" uid="uid://cmaf8lyuxbg5v" path="res://wall.wav" id="7_tfrj3"]
+
+[sub_resource type="Animation" id="Animation_ce2fb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sbfyl"]
+resource_name = "slide_down"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -64), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bqipt"]
+resource_name = "slide_up"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -64)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_an0fs"]
+_data = {
+"RESET": SubResource("Animation_ce2fb"),
+"slide_down": SubResource("Animation_sbfyl"),
+"slide_up": SubResource("Animation_bqipt")
+}
+
+[node name="TitleBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_0u5xf")
+
+[node name="BannerGradient" type="TextureRect" parent="."]
+modulate = Color(7.46027e-07, 0, 0.403407, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -8.0
+offset_bottom = 56.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("1_4nv3i")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 38.0
+
+[node name="PlaceholderRect" type="ColorRect" parent="MarginContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="HomeButton" type="TextureButton" parent="MarginContainer/Control/HBoxContainer"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture_normal = ExtResource("2_e01ul")
+texture_hover = ExtResource("3_25yug")
+stretch_mode = 5
+
+[node name="TitleLabel" type="RichTextLabel" parent="MarginContainer/Control/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(250, 32)
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_ycwhu")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "JankStation"
+fit_content = true
+scroll_active = false
+
+[node name="ClockLabel" parent="MarginContainer/Control" instance=ExtResource("5_xa15i")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_right = 0.0
+offset_bottom = 17.0
+grow_horizontal = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_an0fs")
+}
+
+[node name="HomeSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tfrj3")

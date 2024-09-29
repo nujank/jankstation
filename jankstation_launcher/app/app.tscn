@@ -4,9 +4,9 @@
 [ext_resource type="Shader" uid="uid://ca2r1u5a8xtb7" path="res://app_scenes/demo_browser/wireframe_sphere/wireframe_sphere_shader.tres" id="2_r1alh"]
 [ext_resource type="PackedScene" uid="uid://xiextspg14yi" path="res://screen_fade/screen_fade.tscn" id="2_ybx72"]
 [ext_resource type="ArrayMesh" uid="uid://2tkw4vyal8tl" path="res://app_scenes/demo_browser/wireframe_sphere/wireframe_sphere.obj" id="3_07p17"]
-[ext_resource type="Shader" path="res://ui/vignette.gdshader" id="4_5i8r8"]
-[ext_resource type="Texture2D" uid="uid://5gf8mbtf8qm0" path="res://app_scenes/demo_browser/banner_gradient.png" id="5_fxhkd"]
-[ext_resource type="PackedScene" uid="uid://bs0vsp0bb1xi7" path="res://clock_label/clock_label.tscn" id="7_shr44"]
+[ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="4_5i8r8"]
+[ext_resource type="PackedScene" uid="uid://b1edcg851ur67" path="res://title_bar/title_bar.tscn" id="5_bbw5b"]
+[ext_resource type="AudioStream" uid="uid://bvce18ugaoyi3" path="res://loading_screen_loop.wav" id="10_wfgfk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dov8g"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -77,70 +77,15 @@ material = SubResource("ShaderMaterial_whe1o")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="BannerGradient" type="TextureRect" parent="Control"]
-modulate = Color(7.46027e-07, 0, 0.403407, 1)
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -8.0
-offset_bottom = 56.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = ExtResource("5_fxhkd")
-
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="Control" type="Control" parent="Control/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="JankStationLabel" type="RichTextLabel" parent="Control/MarginContainer/Control"]
-texture_filter = 1
-layout_mode = 1
-offset_right = 140.0
-offset_bottom = 23.0
-mouse_filter = 2
-bbcode_enabled = true
-text = "JankStation"
-fit_content = true
-scroll_active = false
-
-[node name="ClockLabel" parent="Control/MarginContainer/Control" instance=ExtResource("7_shr44")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -102.0
-offset_right = 0.0
-offset_bottom = 17.0
-grow_horizontal = 0
+[node name="TitleBar" parent="." instance=ExtResource("5_bbw5b")]
 
 [node name="SceneRoot" type="Node" parent="."]
 
 [node name="ScreenFade" parent="." instance=ExtResource("2_ybx72")]
+
+[node name="BGMAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_wfgfk")

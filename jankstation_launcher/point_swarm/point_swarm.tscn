@@ -20,8 +20,8 @@ shading_mode = 0
 albedo_color = Color(1, 1, 1, 0.509804)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ln211"]
-radial_segments = 8
-rings = 3
+radial_segments = 4
+rings = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xw7mi"]
 transparency = 1
@@ -32,8 +32,8 @@ albedo_color = Color(0, 0, 1, 0.545098)
 flip_faces = true
 radius = 0.6
 height = 1.2
-radial_segments = 8
-rings = 3
+radial_segments = 4
+rings = 1
 
 [node name="PointSwarm" type="Node3D"]
 script = ExtResource("1_l4hk8")

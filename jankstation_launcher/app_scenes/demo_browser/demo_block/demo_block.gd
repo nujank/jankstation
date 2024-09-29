@@ -2,6 +2,10 @@ class_name DemoBlock
 extends StaticBody3D
 
 
+signal hovered
+signal selected
+
+
 @export var hovered_sfx: AudioStream
 
 
@@ -15,10 +19,12 @@ extends StaticBody3D
 
 
 var ticks: float = 0.0
-var hovered: bool = false
+var is_hovered: bool = false
 
 
 func _ready() -> void:
+	thumbnail.material_override = thumbnail.material_override.duplicate()
+	
 	wireframe.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_wireframe_box_mesh_data(Vector3.ONE), wireframe.material_override)
 	ticks += get_index()
 	
@@ -26,8 +32,9 @@ func _ready() -> void:
 	mouse_exited.connect(on_mouse_exited)
 	input_event.connect(on_input_event)
 	
+	
 func _process(delta: float) -> void:	
-	if hovered == true:
+	if is_hovered == true:
 		scale = lerp(scale, Vector3(1.5, 1.5, 1.5), delta * 20)
 		
 		rotation.y = sin(ticks) * deg_to_rad(3.0)
@@ -42,11 +49,28 @@ func _process(delta: float) -> void:
 
 
 func set_thumbnail_image(image: Texture2D) -> void:
-	pass
+	thumbnail.visible = true
+	thumbnail.material_override.albedo_texture = image
+	
+	
+func show_thumbnail_image() -> void:
+	thumbnail.show()
+	
+	
+func hide_thumbnail_image() -> void:
+	thumbnail.hide()
+	
+	
+func show_star() -> void:
+	star_mesh.show()
+	
+	
+func hide_star() -> void:
+	star_mesh.hide()
 
 
 func on_mouse_entered() -> void:
-	hovered = true
+	is_hovered = true
 	
 	#var audio_stream_player: AudioStreamPlayer = AudioStreamPlayer.new()
 	#audio_stream_player.stream = hovered_sfx
@@ -56,13 +80,15 @@ func on_mouse_entered() -> void:
 	#)
 	#audio_stream_player.play()
 	beep_sfx.play()
+	hovered.emit()
 	
 	
 func on_mouse_exited() -> void:
 	#scale = Vector3.ONE
-	hovered = false
+	is_hovered = false
 
 
 func on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.pressed && event.button_index == MOUSE_BUTTON_LEFT:
 		selected_sfx.play()
+		selected.emit()

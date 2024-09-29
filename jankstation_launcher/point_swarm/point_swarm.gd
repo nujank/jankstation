@@ -26,7 +26,7 @@ func _ready() -> void:
 	point_line_mesh_inst.name = "PointLineMesh"
 	add_child(point_line_mesh_inst)
 	
-	for i in 8:
+	for i in 30:
 		var rx: float = randf_range(-2.0, 2.0)
 		var ry: float = randf_range(-2.0, 2.0)
 		var rz: float = randf_range(-2.0, 2.0)
@@ -65,10 +65,10 @@ func _process(delta: float) -> void:
 				continue
 				
 			var dist: float = p.distance_to(other)
-			#if dist < 1:
-			point_line_mesh.surface_add_vertex(p)
-			point_line_mesh.surface_add_vertex(other)
-			did_create_surface = true
+			if dist < 1.5:
+				point_line_mesh.surface_add_vertex(p)
+				point_line_mesh.surface_add_vertex(other)
+				did_create_surface = true
 				
 	if did_create_surface == true:
 		point_line_mesh.surface_end()
