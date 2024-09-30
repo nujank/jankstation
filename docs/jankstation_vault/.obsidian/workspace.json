@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b222f3716cf8863e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Credits.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "FAQ.md",
+                "file": "Credits.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "FAQ.md",
+                "file": "Credits.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "FAQ.md"
+                "file": "Credits.md"
               }
             }
           }
@@ -159,12 +171,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "20194652f5921bdb",
+  "active": "b222f3716cf8863e",
   "lastOpenFiles": [
+    "FAQ.md",
+    "Credits.md",
     "Rules.md",
     "Sep 26, 2024.md",
     "Sep 28, 2024.md",
-    "FAQ.md",
     "2024-09-26.md",
     "Welcome.md",
     "2 - Topics",

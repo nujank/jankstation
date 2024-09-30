@@ -26,6 +26,7 @@ func _ready() -> void:
 	
 	load_scene("boot")
 	change_scene("splash")
+	#change_scene("main_menu")
 	
 	
 func _process(delta: float) -> void:

@@ -5,6 +5,21 @@
 [ext_resource type="AudioStream" uid="uid://b0jisyhiq8yr3" path="res://app_scenes/splash/link.wav" id="3_doxd6"]
 [ext_resource type="AudioStream" uid="uid://ejcg27p1ssei" path="res://app_scenes/splash/magnet_start_quick.wav" id="3_yrgvv"]
 
+[sub_resource type="Animation" id="Animation_pbwi0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/RichTextLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_3iy0n"]
 resource_name = "fade_in"
 length = 7.0
@@ -41,21 +56,6 @@ tracks/1/keys = {
 }
 tracks/1/use_blend = true
 
-[sub_resource type="Animation" id="Animation_pbwi0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/RichTextLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_88b0d"]
 _data = {
 "RESET": SubResource("Animation_pbwi0"),
@@ -90,7 +90,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_jbk1d")
 theme_override_font_sizes/normal_font_size = 32
-text = "JankStation"
+bbcode_enabled = true
+text = "[center]JankStation[/center]"
 fit_content = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1edcg851ur67"]
+[gd_scene load_steps=13 format=3 uid="uid://b1edcg851ur67"]
 
 [ext_resource type="Script" path="res://title_bar/title_bar.gd" id="1_0u5xf"]
 [ext_resource type="Texture2D" uid="uid://5gf8mbtf8qm0" path="res://ui/banner_gradient.png" id="1_4nv3i"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="4_ycwhu"]
 [ext_resource type="PackedScene" uid="uid://bs0vsp0bb1xi7" path="res://clock_label/clock_label.tscn" id="5_xa15i"]
 [ext_resource type="AudioStream" uid="uid://cmaf8lyuxbg5v" path="res://wall.wav" id="7_tfrj3"]
+[ext_resource type="AudioStream" uid="uid://cpveodq8aidi4" path="res://title_bar/unlink.wav" id="8_pdmdy"]
 
 [sub_resource type="Animation" id="Animation_ce2fb"]
 length = 0.001
@@ -132,7 +133,7 @@ mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("4_ycwhu")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "JankStation"
+text = "[wave]JankStation[/wave]"
 fit_content = true
 scroll_active = false
 
@@ -153,3 +154,6 @@ libraries = {
 
 [node name="HomeSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_tfrj3")
+
+[node name="HomeHoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_pdmdy")

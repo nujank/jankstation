@@ -27,6 +27,12 @@ var has_played_dict: Dictionary = {}
 var scroll_index: int = 0
 var current_demo_pid: int = -1
 
+var up_arrow_hovered: bool = false
+var down_arrow_hovered: bool = false
+
+@onready var arrow_hovered_sfx: AudioStreamPlayer = $ArrowHoveredSFX
+@onready var arrow_selected_sfx: AudioStreamPlayer = $ArrowSelectedSFX
+
 
 func _ready() -> void:
 	App.instance.title_bar.show_home_button()
@@ -36,8 +42,12 @@ func _ready() -> void:
 	
 	up_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), up_arrow_mesh.material_override)
 	up_arrow.input_event.connect(on_up_arrow_input_event)
+	up_arrow.mouse_entered.connect(on_up_arrow_mouse_entered)
+	up_arrow.mouse_exited.connect(on_up_arrow_mouse_exited)
 	down_arrow_mesh.mesh = MeshUtils.build_line_mesh(MeshUtils.generate_triangle_mesh_data(0.35), down_arrow_mesh.material_override)
 	down_arrow.input_event.connect(on_down_arrow_input_event)
+	down_arrow.mouse_entered.connect(on_down_arrow_mouse_entered)
+	down_arrow.mouse_exited.connect(on_down_arrow_mouse_exited)
 	
 	load_demo_data()
 	setup_demo_block_grid()
@@ -54,12 +64,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				scroll_index = 0
 			load_demo_data()
 			setup_demo_block_grid()
+			arrow_selected_sfx.play()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			scroll_index += 4
 			if scroll_index > demo_data_array.size():
 				scroll_index -= 4
 			load_demo_data()
 			setup_demo_block_grid()
+			arrow_selected_sfx.play()
 	
 	
 func _process(delta: float) -> void:
@@ -72,6 +84,18 @@ func _process(delta: float) -> void:
 			setup_demo_block_grid()
 			App.instance.resume_audio()
 			current_demo_pid = -1
+			
+			
+	if up_arrow_hovered == true:
+		up_arrow.scale = lerp(up_arrow.scale, Vector3(1.5, 1.5, 1.5), delta * 20)
+	else:
+		up_arrow.scale = lerp(up_arrow.scale, Vector3(1.0, 1.0, 1.0), delta * 20)
+		
+		
+	if down_arrow_hovered == true:
+		down_arrow.scale = lerp(down_arrow.scale, Vector3(1.5, 1.5, 1.5), delta * 20)
+	else:
+		down_arrow.scale = lerp(down_arrow.scale, Vector3(1.0, 1.0, 1.0), delta * 20)
 	
 	
 func load_demo_data() -> void:
@@ -182,6 +206,17 @@ func on_up_arrow_input_event(camera: Node, event: InputEvent, event_position: Ve
 			
 		load_demo_data()
 		setup_demo_block_grid()
+		
+		arrow_selected_sfx.play()
+		
+		
+func on_up_arrow_mouse_entered() -> void:
+	arrow_hovered_sfx.play()
+	up_arrow_hovered = true
+	
+	
+func on_up_arrow_mouse_exited() -> void:
+	up_arrow_hovered = false
 	
 	
 func on_down_arrow_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
@@ -192,6 +227,17 @@ func on_down_arrow_input_event(camera: Node, event: InputEvent, event_position: 
 			
 		load_demo_data()
 		setup_demo_block_grid()
+		
+		arrow_selected_sfx.play()
+		
+		
+func on_down_arrow_mouse_entered() -> void:
+	arrow_hovered_sfx.play()
+	down_arrow_hovered = true
+	
+	
+func on_down_arrow_mouse_exited() -> void:
+	down_arrow_hovered = false
 
 
 func on_title_bar_home_button_pressed() -> void:

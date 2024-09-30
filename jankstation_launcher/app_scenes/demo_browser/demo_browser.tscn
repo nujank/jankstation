@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://sukcnuebs63m"]
+[gd_scene load_steps=13 format=3 uid="uid://sukcnuebs63m"]
 
 [ext_resource type="Script" path="res://app_scenes/demo_browser/demo_browser.gd" id="1_lyfic"]
 [ext_resource type="PackedScene" uid="uid://srapgnfh0jom" path="res://app_scenes/demo_browser/demo_block/demo_block.tscn" id="2_0rhcs"]
+[ext_resource type="AudioStream" uid="uid://byh1j1ob65m66" path="res://app_scenes/demo_browser/wall.wav" id="3_8tvkf"]
+[ext_resource type="AudioStream" uid="uid://dfrx0hwow0y64" path="res://app_scenes/demo_browser/magnet_start.wav" id="3_bpt5m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48pag"]
 shading_mode = 0
@@ -14,34 +16,6 @@ shading_mode = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_sgxu4"]
 size = Vector3(0.7, 0.7, 0.7)
-
-[sub_resource type="Animation" id="Animation_o5yot"]
-resource_name = "trans_out"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GridContainer:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-8, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GridContainer:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -3.14159, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_jmobp"]
 length = 0.001
@@ -98,6 +72,34 @@ tracks/1/keys = {
 "values": [Vector3(0, -3.14159, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_o5yot"]
+resource_name = "trans_out"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GridContainer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-8, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GridContainer:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -3.14159, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ng3ml"]
 _data = {
 "RESET": SubResource("Animation_jmobp"),
@@ -110,7 +112,7 @@ script = ExtResource("1_lyfic")
 demo_block_packed = ExtResource("2_0rhcs")
 
 [node name="GridContainer" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 2.53518e-06, 0, 1, 0, -2.53518e-06, 0, -1, 0, 0, 0)
 
 [node name="DemoBlockGrid" type="Node3D" parent="GridContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
@@ -199,3 +201,10 @@ scroll_active = false
 libraries = {
 "": SubResource("AnimationLibrary_ng3ml")
 }
+
+[node name="ArrowHoveredSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8tvkf")
+volume_db = -10.0
+
+[node name="ArrowSelectedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bpt5m")
