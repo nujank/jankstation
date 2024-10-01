@@ -13,6 +13,8 @@ extends Node3D
 
 
 func _ready() -> void:
+	App.instance.show_version_label()
+	
 	demo_browser_button.mouse_entered.connect(on_demo_browser_button_mouse_entered)
 	config_button.mouse_entered.connect(on_config_button_mouse_entered)
 	exit_button.mouse_entered.connect(on_exit_button_mouse_entered)

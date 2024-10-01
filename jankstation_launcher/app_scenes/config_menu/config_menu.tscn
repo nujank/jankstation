@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b52vpekcolfsf"]
+[gd_scene load_steps=17 format=3 uid="uid://b52vpekcolfsf"]
 
 [ext_resource type="Script" path="res://app_scenes/config_menu/config_menu.gd" id="1_a2c4c"]
 [ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="2_37w2t"]
@@ -15,6 +15,21 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_v2e08")
 width = 16
 height = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wmci"]
+bg_color = Color(0, 0, 0, 0.623529)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vq5rk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ngub"]
 render_priority = 0
@@ -198,6 +213,19 @@ modulate = Color(1, 0.501961, 0, 1)
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture_normal = SubResource("GradientTexture2D_hwx5q")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="ClearUserDataButton" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_37w2t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0wmci")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0wmci")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vq5rk")
+text = "Clear User Data"
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)

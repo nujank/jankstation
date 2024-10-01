@@ -15,6 +15,7 @@ var current_scene_inst: Node = null
 @onready var bgm_audio: AudioStreamPlayer = $BGMAudio
 
 @onready var title_bar: TitleBar = $TitleBar
+@onready var version_label: RichTextLabel = $VersionLabel
 
 var ticks: float = 0.0
 
@@ -87,3 +88,8 @@ func pause_audio() -> void:
 func resume_audio() -> void:
 	if bgm_audio.playing == false:
 		bgm_audio.play()
+
+
+func show_version_label() -> void:
+	version_label.text = ProjectSettings.get_setting("application/config/version")
+	version_label.show()

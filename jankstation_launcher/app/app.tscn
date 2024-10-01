@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfjfsbbaplsuc"]
+[gd_scene load_steps=16 format=3 uid="uid://dfjfsbbaplsuc"]
 
 [ext_resource type="Script" path="res://app/app.gd" id="1_6gma5"]
 [ext_resource type="Shader" uid="uid://ca2r1u5a8xtb7" path="res://app_scenes/demo_browser/wireframe_sphere/wireframe_sphere_shader.tres" id="2_r1alh"]
@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://2tkw4vyal8tl" path="res://app_scenes/demo_browser/wireframe_sphere/wireframe_sphere.obj" id="3_07p17"]
 [ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="4_5i8r8"]
 [ext_resource type="PackedScene" uid="uid://b1edcg851ur67" path="res://title_bar/title_bar.tscn" id="5_bbw5b"]
+[ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="8_mbpns"]
 [ext_resource type="AudioStream" uid="uid://bvce18ugaoyi3" path="res://loading_screen_loop.wav" id="10_wfgfk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dov8g"]
@@ -89,3 +90,23 @@ mouse_filter = 2
 
 [node name="BGMAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_wfgfk")
+
+[node name="VersionLabel" type="RichTextLabel" parent="."]
+visible = false
+z_index = 100
+texture_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("8_mbpns")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "0.1.0-dev"
+fit_content = true
+scroll_active = false

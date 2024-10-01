@@ -5,6 +5,8 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var v_box_container: VBoxContainer = $VBoxContainer
 
+@onready var clear_user_data_button: Button = $VBoxContainer/ClearUserDataButton
+
 
 func _ready() -> void:	
 	App.instance.title_bar.show_home_button()
@@ -13,7 +15,9 @@ func _ready() -> void:
 	App.instance.title_bar.home_button_pressed.connect(on_title_bar_home_button_pressed)
 	
 	animation_player.play("trans_in")
-	await animation_player.animation_changed
+	await animation_player.animation_finished
+	
+	clear_user_data_button.pressed.connect(on_clear_user_data_button_pressed)
 
 
 func _process(delta: float) -> void:
@@ -32,3 +36,7 @@ func on_title_bar_home_button_pressed() -> void:
 	animation_player.play("trans_out")
 	await animation_player.animation_finished
 	App.instance.change_scene_instant("main_menu")
+
+
+func on_clear_user_data_button_pressed() -> void:
+	DirAccess.remove_absolute("user://demo_data.cfg")

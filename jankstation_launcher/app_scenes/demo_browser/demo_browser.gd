@@ -53,7 +53,7 @@ func _ready() -> void:
 	setup_demo_block_grid()
 	
 	animation_player.play("trans_in")
-	await animation_player.animation_changed
+	await animation_player.animation_finished
 	
 	
 func _unhandled_input(event: InputEvent) -> void:
