@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b52vpekcolfsf"]
+[gd_scene load_steps=15 format=3 uid="uid://b52vpekcolfsf"]
 
 [ext_resource type="Script" path="res://app_scenes/config_menu/config_menu.gd" id="1_a2c4c"]
 [ext_resource type="FontFile" uid="uid://fbw0uw0pq4hh" path="res://fonts/TitilliumWeb-Bold.ttf" id="2_37w2t"]
@@ -6,15 +6,6 @@
 [ext_resource type="ArrayMesh" uid="uid://cb02jc6m5nxwv" path="res://app_scenes/config_menu/wrench_mesh.obj" id="3_30nts"]
 [ext_resource type="ArrayMesh" uid="uid://daudyoivg0niy" path="res://app_scenes/config_menu/cog_mesh.obj" id="4_8qte6"]
 [ext_resource type="ArrayMesh" uid="uid://dgbow2l74bpot" path="res://app_scenes/config_menu/cog_wrench_mesh.obj" id="5_dkq3p"]
-
-[sub_resource type="Gradient" id="Gradient_v2e08"]
-offsets = PackedFloat32Array(0, 0.00361011, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hwx5q"]
-gradient = SubResource("Gradient_v2e08")
-width = 16
-height = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wmci"]
 bg_color = Color(0, 0, 0, 0.623529)
@@ -137,7 +128,8 @@ scroll_active = false
 
 [node name="MusicVolumeSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
-step = 10.0
+max_value = 1.0
+step = 0.1
 tick_count = 11
 ticks_on_borders = true
 
@@ -151,71 +143,13 @@ scroll_active = false
 
 [node name="SFXVolumeSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
-step = 10.0
+max_value = 1.0
+step = 0.1
 tick_count = 11
 ticks_on_borders = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("2_37w2t")
-text = "Theme Color"
-fit_content = true
-scroll_active = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="ColorButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 0, 0, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton2" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(0, 1, 0, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton3" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(0, 0, 1, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton4" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(0, 1, 1, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton5" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton6" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 0, 1, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton7" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(0.501961, 0, 1, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
-[node name="ColorButton8" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
-modulate = Color(1, 0.501961, 0, 1)
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-texture_normal = SubResource("GradientTexture2D_hwx5q")
-
 [node name="Control" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 4)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
 [node name="ClearUserDataButton" type="Button" parent="VBoxContainer"]

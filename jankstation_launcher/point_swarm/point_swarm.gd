@@ -11,7 +11,8 @@ var point_mesh: ImmediateMesh = null
 var point_line_mesh: ImmediateMesh = null
 
 
-func _ready() -> void:	
+func _ready() -> void:
+	
 	var point_mesh_inst: MeshInstance3D = MeshInstance3D.new()
 	point_mesh = ImmediateMesh.new()
 	point_mesh_inst.mesh = point_mesh

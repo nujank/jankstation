@@ -90,6 +90,7 @@ mouse_filter = 2
 
 [node name="BGMAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_wfgfk")
+bus = &"BGM"
 
 [node name="VersionLabel" type="RichTextLabel" parent="."]
 visible = false

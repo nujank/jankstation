@@ -14,7 +14,7 @@ signal home_button_pressed
 @onready var home_hover_sfx: AudioStreamPlayer = $HomeHoverSFX
 
 
-func _ready() -> void:
+func _ready() -> void:	
 	home_button.pressed.connect(on_home_button_pressed)
 	home_button.mouse_entered.connect(on_home_button_mouse_entered)
 

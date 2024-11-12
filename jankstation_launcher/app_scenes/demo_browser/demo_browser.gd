@@ -11,8 +11,9 @@ extends Node3D
 @onready var down_arrow: StaticBody3D = $GridContainer/DownArrow
 @onready var down_arrow_mesh: MeshInstance3D = $GridContainer/DownArrow/DownArrowMesh
 
-@onready var demo_title_label: RichTextLabel = $DemoTitleLabel
-@onready var demo_description_label: RichTextLabel = $DemoDescriptionLabel
+@onready var demo_title_label: RichTextLabel = $ScrollContainer/VBoxContainer/DemoTitleLabel
+@onready var demo_author_label: RichTextLabel = $ScrollContainer/VBoxContainer/DemoAuthorLabel
+@onready var demo_description_label: RichTextLabel = $ScrollContainer/VBoxContainer/DemoDescriptionLabel
 @onready var overlay: ColorRect = $Overlay
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -32,6 +33,8 @@ var down_arrow_hovered: bool = false
 
 @onready var arrow_hovered_sfx: AudioStreamPlayer = $ArrowHoveredSFX
 @onready var arrow_selected_sfx: AudioStreamPlayer = $ArrowSelectedSFX
+
+var is_hovering_info_scroll: bool = false
 
 
 func _ready() -> void:
@@ -55,9 +58,12 @@ func _ready() -> void:
 	animation_player.play("trans_in")
 	await animation_player.animation_finished
 	
+	$ScrollContainer.mouse_entered.connect(on_scroll_container_mouse_entered)
+	$ScrollContainer.mouse_exited.connect(on_scroll_container_mouse_exited)
+	
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton && event.pressed:
+	if event is InputEventMouseButton && event.pressed && is_hovering_info_scroll == false:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			scroll_index -= 4
 			if scroll_index < 0:
@@ -118,15 +124,20 @@ func load_demo_data() -> void:
 		while demo_dir_name != "":
 			if demo_data_dir.current_is_dir():
 				
-				var demo_title: String = demo_dir_name
-				var demo_description: String = demo_dir_name + " description."
+				var json_text = FileAccess.get_file_as_string(demo_path + "/" + demo_dir_name + "/info.json")
+				var json_dict = JSON.parse_string(json_text)
+				
+				var demo_title: String = json_dict.title
+				var demo_author: String = json_dict.author
+				var demo_description: String = json_dict.description
+				var exe_filepath: String = json_dict.exe_filepath
 				
 				var thumbnail: Texture2D = ImageTexture.create_from_image(Image.load_from_file(demo_path + "/" + demo_dir_name + "/thumbnail.png")) as Texture2D
 				var has_played: bool = false
 				if has_played_dict.has(demo_title):
 					has_played = has_played_dict[demo_title]
 				
-				var demo_data: DemoData = DemoData.new(demo_title, demo_description, thumbnail, has_played)
+				var demo_data: DemoData = DemoData.new(demo_title, demo_author, demo_description, exe_filepath, thumbnail, has_played)
 				demo_data_array.push_back(demo_data)
 				
 			demo_dir_name = demo_data_dir.get_next()
@@ -181,7 +192,7 @@ func on_demo_block_selected(demo_data: DemoData) -> void:
 	config.save("user://demo_data.cfg")
 	
 	# run exe
-	var demo_exe_path: String = demo_path + "/" + demo_data.title + "/" + "test_demo_build.exe"
+	var demo_exe_path: String = demo_path + "/" + demo_data.exe_filepath + ".exe"
 	var demo_exe_dict: Dictionary = OS.execute_with_pipe(demo_exe_path, [])
 	current_demo_pid = demo_exe_dict["pid"]
 	
@@ -191,11 +202,13 @@ func on_demo_block_selected(demo_data: DemoData) -> void:
 func on_demo_block_hovered(demo_data: DemoData) -> void:
 	if demo_data == null:
 		demo_title_label.text = ""
+		demo_author_label.text = ""
 		demo_description_label.text = ""
 		return
 		
-	demo_title_label.text = demo_data.title
-	demo_description_label.text = demo_data.description
+	demo_title_label.text = "Title: " + demo_data.title
+	demo_author_label.text = "Author: " + demo_data.author
+	demo_description_label.text = "Description: " + demo_data.description
 
 
 func on_up_arrow_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
@@ -242,7 +255,16 @@ func on_down_arrow_mouse_exited() -> void:
 
 func on_title_bar_home_button_pressed() -> void:
 	demo_title_label.hide()
+	demo_author_label.hide()
 	demo_description_label.hide()
 	animation_player.play("trans_out")
 	await animation_player.animation_finished
 	App.instance.change_scene_instant("main_menu")
+
+
+func on_scroll_container_mouse_entered() -> void:
+	is_hovering_info_scroll = true
+	
+
+func on_scroll_container_mouse_exited() -> void:
+	is_hovering_info_scroll = false

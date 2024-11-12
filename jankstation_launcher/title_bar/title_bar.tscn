@@ -154,6 +154,8 @@ libraries = {
 
 [node name="HomeSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_tfrj3")
+bus = &"SFX"
 
 [node name="HomeHoverSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_pdmdy")
+bus = &"SFX"

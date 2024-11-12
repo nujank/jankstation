@@ -134,6 +134,8 @@ libraries = {
 [node name="ClickSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_5r758")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="SelectSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_s5nuo")
+bus = &"SFX"

@@ -147,23 +147,36 @@ visible = false
 material_override = SubResource("StandardMaterial3D_s8cq7")
 mesh = SubResource("BoxMesh_sgxu4")
 
-[node name="DemoTitleLabel" type="RichTextLabel" parent="."]
-texture_filter = 1
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 offset_left = 235.0
 offset_top = 74.0
 offset_right = 385.0
-offset_bottom = 97.0
+offset_bottom = 280.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DemoTitleLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="DemoDescriptionLabel" type="RichTextLabel" parent="."]
+[node name="DemoAuthorLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
 texture_filter = 1
-offset_left = 236.0
-offset_top = 113.0
-offset_right = 381.0
-offset_bottom = 267.0
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="DemoDescriptionLabel" type="RichTextLabel" parent="ScrollContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
@@ -205,6 +218,8 @@ libraries = {
 [node name="ArrowHoveredSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_8tvkf")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="ArrowSelectedSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_bpt5m")
+bus = &"SFX"

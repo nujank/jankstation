@@ -118,6 +118,8 @@ shape = SubResource("BoxShape3D_mdsj2")
 
 [node name="BeepSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_c1e2j")
+bus = &"SFX"
 
 [node name="SelectedSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_tdhqo")
+bus = &"SFX"

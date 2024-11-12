@@ -19,11 +19,31 @@ var current_scene_inst: Node = null
 
 var ticks: float = 0.0
 
+var is_fullscreen: bool = false
+var music_volume: float = 1.0
+var sfx_volume: float = 1.0
+
 
 func _ready() -> void:
 	instance = self
 	
 	background_grid.mesh = MeshUtils.build_wireframe_grid_mesh(32, background_grid.material_override)
+	
+	var config: ConfigFile = ConfigFile.new()
+	var err = config.load("user://options.cfg")
+	if err == OK:
+		if config.has_section_key("options", "fullscreen"):
+			is_fullscreen = config.get_value("options", "fullscreen")
+			if is_fullscreen == true:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			else:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			
+		if config.has_section_key("options", "music_volume"):
+			music_volume = config.get_value("options", "music_volume")
+			
+		if config.has_section_key("options", "sfx_volume"):
+			sfx_volume = config.get_value("options", "sfx_volume")
 	
 	load_scene("boot")
 	change_scene("splash")
@@ -93,3 +113,30 @@ func resume_audio() -> void:
 func show_version_label() -> void:
 	version_label.text = ProjectSettings.get_setting("application/config/version")
 	version_label.show()
+
+
+func set_fullscreen(flag: bool) -> void:
+	is_fullscreen = flag
+	var config = ConfigFile.new()
+	config.set_value("options", "fullscreen", is_fullscreen)
+	config.set_value("options", "music_volume", music_volume)
+	config.set_value("options", "sfx_volume", sfx_volume)
+	config.save("user://options.cfg")
+
+
+func set_music_volume(value: float) -> void:
+	music_volume = value
+	var config = ConfigFile.new()
+	config.set_value("options", "fullscreen", is_fullscreen)
+	config.set_value("options", "music_volume", music_volume)
+	config.set_value("options", "sfx_volume", sfx_volume)
+	config.save("user://options.cfg")
+	
+	
+func set_sfx_volume(value: float) -> void:
+	sfx_volume = value
+	var config = ConfigFile.new()
+	config.set_value("options", "fullscreen", is_fullscreen)
+	config.set_value("options", "music_volume", music_volume)
+	config.set_value("options", "sfx_volume", sfx_volume)
+	config.save("user://options.cfg")
